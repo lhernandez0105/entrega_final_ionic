@@ -22,18 +22,30 @@ export class HomePage implements OnInit {
     this.params.page += 1;
     this.rymSyc.getCharacters(this.params).subscribe({
       next: (respuesta: any) => {
-        console.log(respuesta);
+
         this.characters.push(...respuesta.results);
         console.log(this.characters);
-        if (event){
+        if (event) {
           event.target.complete();
         }
       },
-      error: (err: any) => { 
-        if (event){
+      error: (err: any) => {
+        if (event) {
           event.target.complete();
         }
-        console.log(err) }
+        console.log(err)
+      }
+    });
+  }
+
+  searchCharacters(event?: any) {
+    this.params.page = 1;
+    this.rymSyc.getCharacters(this.params).subscribe({
+      next: (respuesta: any) => {
+        this.characters = respuesta.results;
+      },
+      error: (err: any) => {
+      }
     });
   }
 

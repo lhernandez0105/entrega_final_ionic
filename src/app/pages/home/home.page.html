@@ -1,17 +1,26 @@
 <ion-header mode="md">
   <ion-toolbar>
     <ion-title>
-      <div class="version">Ionic v7</div>
+      <div class="version">Ionic Primera App 1.0</div>
       <strong>Rick & Morty</strong>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content mode="ios">
   <div class="glass-content">
     <ion-grid>
+
       <ion-row>
-        <ion-col *ngFor="let personaje of characters" size-lg="6" size-md="6" size-sm="12" size="12">
+        <ion-col class="d-flex-center" size="12">
+
+          <ion-searchbar placeholder="¿Que estas buscando?" [(ngModel)]="params.name" (ionInput)="searchCharacters()" [debounce]="250"></ion-searchbar>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col routerLink="/character-detail/{{personaje.id}}" *ngFor="let personaje of characters" size-lg="6" size-md="6" size-sm="12" size="12">
           <ion-card>
             <ion-grid>
               <ion-row>
@@ -36,9 +45,7 @@
       </ion-row>
     </ion-grid>
     <ion-infinite-scroll thereshold="25%" position="bottom" (ionInfinite)="getCharacters($event)">
-      <ion-infinite-scroll-content 
-      loadingSpinner="bubbles"
-      loadingText="Cargando mas personajes...">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando mas personajes...">
 
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
